@@ -19,7 +19,10 @@ import {
   Zap,
   CheckCheck,
   Database,
+  Megaphone,
 } from 'lucide-react';
+import RegulatoryAlertWidget from './RegulatoryAlertWidget';
+import RegulatoryAdmin from './RegulatoryAdmin';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -43,6 +46,9 @@ interface VerifiedFDRData {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userEmail = 'finance.officer@iit-delhi.ac.in' }) => {
+  // Phase 4 Regulatory Admin Console Modal State
+  const [showRegulatoryAdmin, setShowRegulatoryAdmin] = useState(false);
+
   // Legacy PDF Form State
   const [legacyFDRNumber, setLegacyFDRNumber] = useState('FDR-2023-MAN-7721');
   const [legacyBank, setLegacyBank] = useState('Punjab National Bank');
@@ -147,6 +153,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userEmail = 'fin
             </div>
 
             <button
+              onClick={() => setShowRegulatoryAdmin(true)}
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-950/90 hover:bg-cyan-900 text-cyan-300 border border-cyan-700/80 transition-colors shadow-sm shadow-cyan-950"
+              title="Open AICTE Policy Promulgation Console (Authority Mode)"
+            >
+              <Megaphone className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="hidden sm:inline">AICTE Policy Console</span>
+              <span className="sm:hidden">Policy</span>
+            </button>
+
+            <button
               onClick={onLogout}
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 transition-colors"
               title="Return to Portal Home"
@@ -243,6 +259,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userEmail = 'fin
           {/* LEFT PANEL: LEGACY PDF UPLOAD FORM (Clunky, Manual, Risky) */}
           {/* ======================================================== */}
           <div className="rounded-2xl bg-slate-900/60 border border-slate-800/90 p-6 flex flex-col justify-between relative overflow-hidden backdrop-blur-sm">
+            {/* Phase 4 Active Regulatory Engine: High-Priority Alert Widget Interrupting Workflow */}
+            <RegulatoryAlertWidget
+              institutionName="National Institute of Technology & Advanced Technology"
+              region="Northern Jurisdiction"
+            />
+
             {/* Header Badge */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -668,6 +690,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userEmail = 'fin
           </div>
         </section>
       </main>
+
+      {/* Phase 4 AICTE Regulatory Admin Console Modal */}
+      {showRegulatoryAdmin && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in">
+          <div className="w-full max-w-3xl max-h-[92vh] overflow-y-auto">
+            <RegulatoryAdmin onClose={() => setShowRegulatoryAdmin(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
