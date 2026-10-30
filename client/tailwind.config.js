@@ -7,18 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        portal: {
-          navy: '#0B132B',
-          deep: '#1C2541',
-          teal: '#3A506B',
-          cyan: '#5BC0BE',
-          light: '#6FFFE9',
-          gold: '#FFD166'
-        }
+        aicteBlue: '#0A3A6B',
+        aicteBlueDark: '#072749',
+        aicteBlueLight: '#E8F1FA',
+        aicteYellow: '#F9A825',
+        aicteYellowDark: '#E6951A',
+        govWhite: '#FFFFFF',
+        govNeutral: '#F4F7FA',
+        nicGreen: '#138808',
+      },
+      keyframes: {
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      }
+        fadeInUp: 'fadeInUp 0.35s ease-out forwards',
+        'pulse-subtle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
     },
   },
   plugins: [],
