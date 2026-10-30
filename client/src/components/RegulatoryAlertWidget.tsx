@@ -80,8 +80,8 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
     <div
       className={`border-l-4 rounded-sm border-t border-r border-b p-4 mb-6 shadow-sm transition-colors text-left ${
         isUnderReview
-          ? 'bg-amber-50 border-amber-600 border-t-slate-300 border-r-slate-300 border-b-slate-300 text-amber-950'
-          : 'bg-red-50 border-red-700 border-t-slate-300 border-r-slate-300 border-b-slate-300 text-red-950'
+          ? 'bg-amber-50 border-amber-600 border-t-amber-200 border-r-amber-200 border-b-amber-200 text-amber-900'
+          : 'bg-red-50 border-red-700 border-t-red-200 border-r-red-200 border-b-red-200 text-red-900'
       }`}
     >
       {/* Alert Header */}
@@ -135,7 +135,7 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
       {/* Expanded Form / Details */}
       {isExpanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 space-y-3">
-          <div className="text-xs text-slate-700 bg-white border border-slate-300 rounded-sm p-3 space-y-1">
+          <div className="text-xs text-slate-700 bg-white border border-slate-200 rounded-sm p-3 space-y-1">
             <div className="flex items-center justify-between text-[11px] text-slate-500">
               <span className="flex items-center space-x-1 text-red-700 font-semibold">
                 <Clock className="w-3.5 h-3.5" />
@@ -149,7 +149,7 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
           </div>
 
           {!isUnderReview ? (
-            <form onSubmit={handleSubmitCompliance} className="space-y-3 bg-white border border-slate-300 rounded-sm p-3.5">
+            <form onSubmit={handleSubmitCompliance} className="space-y-3 bg-white border border-slate-200 rounded-sm p-3.5">
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
                   Institutional Explanatory Statement / Compliance Action
@@ -160,7 +160,7 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
                   value={feedbackText}
                   onChange={(e) => setFeedbackText(e.target.value)}
                   placeholder="e.g. Supplementary Fixed Deposit Receipt #SBIN-FDR-2026-99210 of ₹10,00,000 has been created with State Bank of India and lien marked to Member Secretary, AICTE New Delhi."
-                  className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+                  className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
                 />
               </div>
 
@@ -174,7 +174,7 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
                     value={documentUrl}
                     onChange={(e) => setDocumentUrl(e.target.value)}
                     placeholder="e.g. https://vault.institution.edu.in/deposits/fdr-topup-10lakh.pdf"
-                    className="w-full px-3 py-2 pl-8 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue font-mono"
+                    className="w-full px-3 py-2 pl-8 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue font-mono"
                   />
                   <Link2 className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
                 </div>
@@ -205,7 +205,7 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
               </div>
             </form>
           ) : (
-            <div className="bg-white border border-slate-300 rounded-sm p-3.5 space-y-2">
+            <div className="bg-white border border-slate-200 rounded-sm p-3.5 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-green-800 flex items-center space-x-1.5">
                   <CheckCircle2 className="w-4 h-4 text-green-700" />
@@ -222,14 +222,14 @@ export const RegulatoryAlertWidget: React.FC<RegulatoryAlertWidgetProps> = ({
 
               <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200">
                 <span className="flex items-center space-x-1">
-                  <FileText className="w-3.5 h-3.5 text-nicBlue" />
+                  <FileText className="w-3.5 h-3.5 text-aicteBlue" />
                   <span className="font-mono text-slate-700 truncate max-w-[320px]">
                     {submittedData?.documentUrl}
                   </span>
                 </span>
                 <button
                   onClick={() => setIsUnderReview(false)}
-                  className="text-nicBlue hover:underline text-[11px] font-semibold"
+                  className="text-aicteBlue hover:underline text-[11px] font-semibold"
                 >
                   Modify Submission
                 </button>

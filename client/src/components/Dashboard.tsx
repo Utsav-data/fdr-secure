@@ -107,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-govNeutral text-slate-900 flex flex-col font-sans">
       {/* Top National Tricolor Indicator Bar */}
       <div className="h-1 w-full flex">
         <div className="h-full w-1/3 bg-[#FF9933]" />
@@ -115,11 +115,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="h-full w-1/3 bg-[#138808]" />
       </div>
 
-      {/* Solid NIC Blue Government Header */}
-      <header className="bg-nicBlue text-white border-b border-nicBlueDark sticky top-0 z-20 shadow-sm">
+      {/* Solid AICTE Blue Government Header */}
+      <header className="bg-aicteBlue text-white border-b border-aicteBlueDark sticky top-0 z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="h-9 w-9 rounded-sm bg-white text-nicBlue flex flex-col items-center justify-center font-bold text-xs tracking-tighter shrink-0">
+            <div className="h-9 w-9 rounded-sm bg-white text-aicteBlue flex flex-col items-center justify-center font-bold text-xs tracking-tighter shrink-0 shadow-sm">
               <span className="text-[11px] leading-tight font-black">AICTE</span>
             </div>
             <div>
@@ -127,8 +127,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <span className="font-bold text-sm sm:text-base tracking-tight text-white">
                   Institutional Security Deposit Repository
                 </span>
-                <span className="text-[10px] font-mono uppercase bg-nicBlueDark px-2 py-0.5 rounded-sm border border-blue-400/40 text-blue-100">
-                  Zero Trust • NIC Enterprise
+                <span className="text-[10px] font-mono uppercase bg-aicteBlueDark px-2 py-0.5 rounded-sm border border-white/20 text-blue-100">
+                  Zero Trust • Ministry of Education
                 </span>
               </div>
               <p className="text-[11px] text-blue-100 hidden sm:block">
@@ -147,16 +147,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
             <button
               onClick={() => setShowRegulatoryAdmin(true)}
-              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold bg-white text-nicBlue hover:bg-slate-100 border border-transparent shadow-sm transition-colors"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold bg-white text-aicteBlue hover:bg-slate-100 border border-transparent shadow-sm transition-colors"
               title="Open AICTE Regulatory Console (Authority Mode)"
             >
-              <Megaphone className="w-3.5 h-3.5 text-nicBlue" />
+              <Megaphone className="w-3.5 h-3.5 text-aicteBlue" />
               <span>AICTE Policy Console</span>
             </button>
 
             <button
               onClick={onLogout}
-              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-white bg-nicBlueDark hover:bg-[#072445] border border-blue-900 transition-colors"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-white bg-aicteBlueDark hover:bg-[#051c36] border border-blue-900 transition-colors"
               title="Sign Out"
             >
               <LogOut className="w-3.5 h-3.5" />
@@ -169,10 +169,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Institution Authority Ribbon */}
-        <section className="bg-white border border-slate-300 rounded-sm p-5 shadow-sm text-left">
+        <section className="bg-white border border-slate-200 rounded-sm p-5 shadow-sm text-left">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="flex items-start space-x-3.5">
-              <div className="p-2.5 rounded-sm bg-slate-100 border border-slate-300 text-nicBlue shrink-0">
+              <div className="p-2.5 rounded-sm bg-slate-100 border border-slate-200 text-aicteBlue shrink-0">
                 <Building2 className="w-6 h-6" />
               </div>
               <div>
@@ -202,7 +202,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               <div className="bg-slate-50 border border-slate-200 rounded-sm p-2.5">
                 <span className="text-slate-500 text-[11px] block uppercase font-semibold">Time-Lock Seal</span>
-                <span className="text-nicBlue font-mono font-bold flex items-center space-x-1 mt-0.5">
+                <span className="text-aicteBlue font-mono font-bold flex items-center space-x-1 mt-0.5">
                   <Lock className="w-3.5 h-3.5" />
                   <span>HMAC-SHA256</span>
                 </span>
@@ -218,7 +218,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               <div className="bg-slate-50 border border-slate-200 rounded-sm p-2.5">
                 <span className="text-slate-500 text-[11px] block uppercase font-semibold">Bank Rail</span>
-                <span className="text-nicBlue font-bold block mt-0.5">
+                <span className="text-aicteBlue font-bold block mt-0.5">
                   Setu AA (Live FIP)
                 </span>
               </div>
@@ -232,7 +232,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           {/* ======================================================== */}
           {/* LEFT PANEL: LEGACY PDF UPLOAD FORM                        */}
           {/* ======================================================== */}
-          <div className="bg-white border border-slate-300 rounded-sm p-6 shadow-sm flex flex-col justify-between">
+          <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm flex flex-col justify-between">
             {/* Regulatory Alert Widget Interrupting Workflow at Top */}
             <RegulatoryAlertWidget
               institutionName="National Institute of Technology & Advanced Technology"
@@ -276,7 +276,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     type="text"
                     value={legacyFDRNumber}
                     onChange={(e) => setLegacyFDRNumber(e.target.value)}
-                    className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+                    className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
                   />
                 </div>
 
@@ -289,7 +289,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       type="text"
                       value={legacyBank}
                       onChange={(e) => setLegacyBank(e.target.value)}
-                      className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+                      className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
                     />
                   </div>
 
@@ -301,7 +301,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       type="number"
                       value={legacyAmount}
                       onChange={(e) => setLegacyAmount(e.target.value)}
-                      className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+                      className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
                     />
                   </div>
                 </div>
@@ -354,12 +354,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
           {/* ======================================================== */}
           {/* RIGHT PANEL: ZERO-TRUST BANK FETCH (ACCOUNT AGGREGATOR)  */}
           {/* ======================================================== */}
-          <div className="bg-white border border-slate-300 rounded-sm p-6 shadow-sm flex flex-col justify-between">
+          <div className="bg-white border border-slate-200 rounded-sm p-6 shadow-sm flex flex-col justify-between">
             <div>
               {/* Panel Header */}
               <div className="border-b border-slate-200 pb-3 mb-4 flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-nicBlue">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-aicteBlue">
                     Zero-Trust Bank Fetch (Account Aggregator)
                   </h3>
                   <p className="text-xs text-slate-500">
@@ -374,8 +374,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {/* State 1: Idle (Ready to initiate) */}
               {aaState === 'idle' && (
                 <div className="space-y-4">
-                  <div className="bg-slate-50 border border-slate-300 rounded-sm p-4 space-y-2">
-                    <div className="flex items-center space-x-2 text-nicBlue font-bold text-xs uppercase tracking-wider">
+                  <div className="bg-slate-50 border border-slate-200 rounded-sm p-4 space-y-2">
+                    <div className="flex items-center space-x-2 text-aicteBlue font-bold text-xs uppercase tracking-wider">
                       <Landmark className="w-4 h-4" />
                       <span>Direct Banking Interface via Setu FIP</span>
                     </div>
@@ -385,7 +385,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   </div>
 
                   <div className="text-center py-6 border border-dashed border-slate-300 rounded-sm bg-slate-50 space-y-3">
-                    <Landmark className="w-10 h-10 text-nicBlue mx-auto" />
+                    <Landmark className="w-10 h-10 text-aicteBlue mx-auto" />
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">
                         No Fixed Deposit Linked Yet
@@ -398,7 +398,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <button
                       id="trigger-aa-fetch-btn"
                       onClick={handleInitiateAA}
-                      className="py-3 px-6 rounded-sm bg-nicBlue hover:bg-nicBlueDark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors inline-flex items-center space-x-2"
+                      className="py-3 px-6 rounded-sm bg-aicteBlue hover:bg-aicteBlueDark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors inline-flex items-center space-x-2"
                     >
                       <span>Initiate Account Aggregator Verification</span>
                     </button>
@@ -408,10 +408,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               {/* State 2: Loading State (Sequential steps with animate-pulse) */}
               {aaState === 'loading' && (
-                <div className="border border-slate-300 rounded-sm p-5 bg-slate-50 space-y-4">
-                  <div className="flex items-center justify-between text-xs font-bold text-nicBlue border-b border-slate-200 pb-2.5">
+                <div className="border border-slate-200 rounded-sm p-5 bg-slate-50 space-y-4">
+                  <div className="flex items-center justify-between text-xs font-bold text-aicteBlue border-b border-slate-200 pb-2.5">
                     <span className="flex items-center space-x-2">
-                      <RefreshCw className="w-4 h-4 animate-spin text-nicBlue" />
+                      <RefreshCw className="w-4 h-4 animate-spin text-aicteBlue" />
                       <span>Interrogating RBI Account Aggregator FIP Network...</span>
                     </span>
                     <span className="font-mono text-slate-600">Step {aaStep} of 4</span>
@@ -476,7 +476,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {/* State 3: Verified Crisp Certificate Table */}
               {aaState === 'verified' && verifiedData && (
                 <div className="space-y-4">
-                  <div className="border-l-4 border-green-600 bg-green-50 border-t border-r border-b border-slate-300 rounded-sm p-4 shadow-sm space-y-3">
+                  <div className="border-l-4 border-green-600 bg-green-50 border-t border-r border-b border-slate-200 rounded-sm p-4 shadow-sm space-y-3">
                     <div className="flex items-center justify-between border-b border-green-200 pb-2">
                       <div className="flex items-center space-x-2">
                         <CheckCircle2 className="w-5 h-5 text-green-700" />
@@ -495,7 +495,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     </div>
 
                     {/* Certificate Table */}
-                    <div className="border border-slate-300 rounded-sm bg-white overflow-hidden text-xs">
+                    <div className="border border-slate-200 rounded-sm bg-white overflow-hidden text-xs">
                       <table className="w-full border-collapse">
                         <tbody className="divide-y divide-slate-200">
                           <tr>
@@ -520,7 +520,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                             <td className="py-2 px-3 font-semibold text-slate-600 bg-slate-50 border-r border-slate-200">
                               FDR Number
                             </td>
-                            <td className="py-2 px-3 font-mono font-bold text-nicBlue">
+                            <td className="py-2 px-3 font-mono font-bold text-aicteBlue">
                               {verifiedData.fdrNumber}
                             </td>
                           </tr>
@@ -569,12 +569,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <div className="pt-2">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center space-x-1">
-                          <Lock className="w-3.5 h-3.5 text-nicBlue" />
+                          <Lock className="w-3.5 h-3.5 text-aicteBlue" />
                           <span>HMAC-SHA256 Cryptographic Time-Lock Seal</span>
                         </span>
                         <button
                           onClick={() => handleCopyHash(verifiedData.cryptographicLockHash)}
-                          className="flex items-center space-x-1 text-[11px] text-nicBlue hover:underline font-semibold"
+                          className="flex items-center space-x-1 text-[11px] text-aicteBlue hover:underline font-semibold"
                         >
                           {copiedHash ? (
                             <>
@@ -590,7 +590,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         </button>
                       </div>
 
-                      <div className="p-2.5 rounded-sm bg-slate-100 border border-slate-300 font-mono text-[11px] text-slate-900 break-all select-all">
+                      <div className="p-2.5 rounded-sm bg-slate-100 border border-slate-200 font-mono text-[11px] text-slate-900 break-all select-all">
                         {verifiedData.cryptographicLockHash}
                       </div>
 
@@ -602,7 +602,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <div className="pt-2 flex justify-end">
                       <button
                         onClick={handleInitiateAA}
-                        className="text-xs font-semibold text-nicBlue hover:underline flex items-center space-x-1"
+                        className="text-xs font-semibold text-aicteBlue hover:underline flex items-center space-x-1"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                         <span>Re-Verify Ledger</span>
@@ -622,10 +622,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Enterprise Bottom Specifications Strip */}
-        <section className="bg-white border border-slate-300 rounded-sm p-4 text-xs text-slate-700 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+        <section className="bg-white border border-slate-200 rounded-sm p-4 text-xs text-slate-700 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
           <div>
             <h4 className="font-bold text-slate-900 mb-1 flex items-center space-x-1.5">
-              <Lock className="w-3.5 h-3.5 text-nicBlue" />
+              <Lock className="w-3.5 h-3.5 text-aicteBlue" />
               <span>Cryptographic Time-Lock</span>
             </h4>
             <p className="text-[11px] text-slate-600 leading-relaxed">
@@ -635,17 +635,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           <div>
             <h4 className="font-bold text-slate-900 mb-1 flex items-center space-x-1.5">
-              <Landmark className="w-3.5 h-3.5 text-nicBlue" />
+              <Landmark className="w-3.5 h-3.5 text-aicteBlue" />
               <span>Account Aggregator Rails</span>
             </h4>
             <p className="text-[11px] text-slate-600 leading-relaxed">
-              Automated consent flow through Setu AA. Asynchronous webhooks at <code className="text-nicBlue font-mono">/api/webhooks/setu</code> mark records as ACTIVE with verified institutional lien status.
+              Automated consent flow through Setu AA. Asynchronous webhooks at <code className="text-aicteBlue font-mono">/api/webhooks/setu</code> mark records as ACTIVE with verified institutional lien status.
             </p>
           </div>
 
           <div>
             <h4 className="font-bold text-slate-900 mb-1 flex items-center space-x-1.5">
-              <Clock className="w-3.5 h-3.5 text-nicBlue" />
+              <Clock className="w-3.5 h-3.5 text-aicteBlue" />
               <span>Automated Maturity Cron</span>
             </h4>
             <p className="text-[11px] text-slate-600 leading-relaxed">

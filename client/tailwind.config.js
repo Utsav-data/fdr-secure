@@ -7,20 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        nicBlue: '#0F4A8A',
-        nicBlueDark: '#0A3563',
-        nicBlueLight: '#EBF3FA',
-        nicOrange: '#FF9933',
+        aicteBlue: '#0A3A6B',
+        aicteBlueDark: '#072749',
+        aicteBlueLight: '#E8F1FA',
+        aicteYellow: '#F9A825',
+        aicteYellowDark: '#E6951A',
+        govWhite: '#FFFFFF',
+        govNeutral: '#F4F7FA',
         nicGreen: '#138808',
       },
       keyframes: {
         fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(6px)' },
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
       animation: {
-        fadeInUp: 'fadeInUp 0.25s ease-out forwards',
+        fadeInUp: 'fadeInUp 0.35s ease-out forwards',
         'pulse-subtle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },

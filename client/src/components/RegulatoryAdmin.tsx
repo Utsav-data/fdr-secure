@@ -134,14 +134,14 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-300 rounded-sm shadow-md p-6 relative text-left font-sans">
+    <div className="bg-white border border-slate-200 rounded-sm shadow-xl p-6 relative text-left font-sans">
       {/* Modal Top Bar */}
       <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
         <div>
           <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
             Government of India • Central Regulatory Bureau
           </div>
-          <h3 className="text-lg font-bold text-nicBlue">
+          <h3 className="text-lg font-bold text-aicteBlue">
             Promulgate Statutory Policy & Dispatch Compliance Mandates
           </h3>
           <p className="text-xs text-slate-600">
@@ -179,7 +179,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
             placeholder="e.g. AICTE Gazetted Notification 2026/FDR-09"
           />
         </div>
@@ -193,7 +193,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue leading-relaxed"
+            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue leading-relaxed"
           />
         </div>
 
@@ -206,7 +206,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
               <select
                 value={targetRegion}
                 onChange={(e) => setTargetRegion(e.target.value)}
-                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue appearance-none"
+                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue appearance-none"
               >
                 <option value="ALL">All Regions (Pan-India Institutions)</option>
                 <option value="Northern">Northern (Delhi, UP, Punjab, Haryana, J&K)</option>
@@ -226,7 +226,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
               type="number"
               value={topUpAmount}
               onChange={(e) => setTopUpAmount(e.target.value)}
-              className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono font-semibold focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+              className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono font-semibold focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
             />
           </div>
 
@@ -239,7 +239,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
                 type="number"
                 value={deadlineDays}
                 onChange={(e) => setDeadlineDays(e.target.value)}
-                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-aicteBlue focus:border-aicteBlue"
               />
               <Clock className="w-4 h-4 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
             </div>
@@ -250,7 +250,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-2.5 px-4 rounded-sm bg-nicBlue hover:bg-nicBlueDark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+            className="w-full py-2.5 px-4 rounded-sm bg-aicteBlue hover:bg-aicteBlueDark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
           >
             {isSubmitting ? (
               <>
@@ -271,7 +271,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
       <div className="mt-6 pt-4 border-t border-slate-200">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center space-x-1.5">
-            <FileText className="w-3.5 h-3.5 text-nicBlue" />
+            <FileText className="w-3.5 h-3.5 text-aicteBlue" />
             <span>Active Statutory Directives Ledger</span>
           </span>
           <span className="text-[11px] font-mono text-slate-500">
@@ -279,9 +279,9 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
           </span>
         </div>
 
-        <div className="border border-slate-300 rounded-sm overflow-hidden text-xs">
+        <div className="border border-slate-200 rounded-sm overflow-hidden text-xs">
           <table className="w-full border-collapse">
-            <thead className="bg-slate-100 border-b border-slate-300 text-left text-[11px] uppercase tracking-wider text-slate-600 font-semibold">
+            <thead className="bg-slate-100 border-b border-slate-200 text-left text-[11px] uppercase tracking-wider text-slate-600 font-semibold">
               <tr>
                 <th className="py-2 px-3 border-r border-slate-300">Directive Title</th>
                 <th className="py-2 px-3 border-r border-slate-300">Jurisdiction</th>
