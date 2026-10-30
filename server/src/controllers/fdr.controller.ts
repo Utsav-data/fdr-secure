@@ -1,5 +1,11 @@
 import { Request, Response } from 'express';
+import crypto from 'crypto';
 import { query } from '../db/index';
+import {
+  generateLockHash,
+  verifyLockHash,
+  formatDateKey,
+} from '../services/crypto.service';
 
 // Allowed statuses based on schema constraints and workflow
 const VALID_STATUSES = [
@@ -12,6 +18,7 @@ const VALID_STATUSES = [
   'LIEN_MARKED',
   'REJECTED',
   'RELEASED',
+  'RENEWAL_REQUIRED',
 ];
 
 /**
@@ -102,8 +109,13 @@ export const createFDR = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    // Generate UUID and SHA-256 HMAC Cryptographic Time-Lock Hash
+    const fdrId = crypto.randomUUID();
+    const lockHash = generateLockHash(fdrId, parsedMaturityDate);
+
     const insertSql = `
       INSERT INTO FDR_Records (
+        id,
         institution_id,
         fdr_number,
         bank_name,
@@ -114,11 +126,12 @@ export const createFDR = async (req: Request, res: Response): Promise<void> => {
         verification_source,
         lien_active,
         cryptographic_lock_hash
-      ) VALUES ($1, $2, $3, $4, $5, $6, 'PENDING_VERIFICATION', 'MANUAL', $7, $8)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, 'PENDING_VERIFICATION', 'MANUAL', $8, $9)
       RETURNING *;
     `;
 
     const values = [
+      fdrId,
       institution_id,
       String(fdr_number).trim(),
       String(bank_name).trim(),
@@ -126,7 +139,7 @@ export const createFDR = async (req: Request, res: Response): Promise<void> => {
       issue_date,
       maturity_date,
       Boolean(lien_active),
-      cryptographic_lock_hash || null,
+      lockHash,
     ];
 
     const result = await query(insertSql, values);
@@ -385,18 +398,9 @@ export const updateFDRStatus = async (req: Request, res: Response): Promise<void
       return;
     }
 
-    const updateSql = `
-      UPDATE FDR_Records
-      SET 
-        status = $1,
-        updated_at = CURRENT_TIMESTAMP
-      WHERE id = $2
-      RETURNING *;
-    `;
-
-    const result = await query(updateSql, [formattedStatus, id]);
-
-    if (result.rows.length === 0) {
+    // Fetch existing FDR row from DB
+    const existingCheck = await query('SELECT * FROM FDR_Records WHERE id = $1', [id]);
+    if (existingCheck.rows.length === 0) {
       res.status(404).json({
         success: false,
         message: `FDR record with ID '${id}' was not found.`,
@@ -404,6 +408,51 @@ export const updateFDRStatus = async (req: Request, res: Response): Promise<void
       return;
     }
 
+    const currentFDR = existingCheck.rows[0];
+
+    // Zero-Trust Time-Lock Security Verification when status transition is 'RELEASED'
+    if (formattedStatus === 'RELEASED') {
+      // 1. Recalculate hash from DB row and check if it matches stored cryptographic_lock_hash
+      const isHashValid = verifyLockHash(
+        currentFDR.id,
+        currentFDR.maturity_date,
+        currentFDR.cryptographic_lock_hash
+      );
+
+      if (!isHashValid) {
+        res.status(403).json({
+          success: false,
+          error: 'SECURITY_BREACH',
+          message: 'Security Breach: Cryptographic Time-Lock validation failed! Stored SHA-256 seal does not match the immutable record parameters.',
+        });
+        return;
+      }
+
+      // 2. Check if current date >= maturity_date
+      const todayStr = formatDateKey(new Date());
+      const maturityStr = formatDateKey(currentFDR.maturity_date);
+
+      if (todayStr < maturityStr) {
+        res.status(403).json({
+          success: false,
+          error: 'SECURITY_BREACH',
+          message: `Security Breach: Cannot release FDR before statutory maturity date (${maturityStr}). Current date is ${todayStr}. Early encashment or premature lien release is prohibited by Zero-Trust policy.`,
+        });
+        return;
+      }
+    }
+
+    const updateSql = `
+      UPDATE FDR_Records
+      SET 
+        status = $1,
+        lien_active = CASE WHEN $1 = 'RELEASED' THEN FALSE ELSE lien_active END,
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = $2
+      RETURNING *;
+    `;
+
+    const result = await query(updateSql, [formattedStatus, id]);
     const updatedFDR = result.rows[0];
 
     res.status(200).json({

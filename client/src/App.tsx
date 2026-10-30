@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import Dashboard from './components/Dashboard';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,13 +12,30 @@ export default function App() {
     e.preventDefault();
     setStatusMessage('Authenticating credentials with Zero-Trust Identity Provider...');
     setTimeout(() => {
-      setStatusMessage('Authentication successful! Redirecting to secure institutional portal...');
+      setStatusMessage('Authentication successful! Loading Institutional Security Dashboard...');
       setTimeout(() => {
         setShowLoginModal(false);
         setStatusMessage(null);
-      }, 1500);
-    }, 1000);
+        setIsAuthenticated(true);
+      }, 700);
+    }, 600);
   };
+
+  const handleQuickDemoLogin = (roleEmail = 'finance.officer@iit-delhi.ac.in') => {
+    setEmail(roleEmail);
+    setShowLoginModal(false);
+    setIsAuthenticated(true);
+  };
+
+  // If user is authenticated, route directly to the Phase 3 Split-Screen Dashboard
+  if (isAuthenticated) {
+    return (
+      <Dashboard
+        onLogout={() => setIsAuthenticated(false)}
+        userEmail={email || 'finance.officer@iit-delhi.ac.in'}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500 selection:text-slate-950 relative overflow-hidden">
@@ -75,7 +94,7 @@ export default function App() {
           Cryptographically sealed security deposit management, automated bank Account Aggregator verification, and real-time regulatory compliance monitoring for affiliated institutions.
         </p>
 
-        {/* Call to Action Button */}
+        {/* Call to Action Buttons */}
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
           <button
             id="hero-login-button"
@@ -86,6 +105,14 @@ export default function App() {
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
+          </button>
+
+          <button
+            id="demo-direct-button"
+            onClick={() => handleQuickDemoLogin()}
+            className="w-full sm:w-auto px-6 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-cyan-300 hover:text-white font-semibold text-base border border-cyan-500/30 transition-all duration-200 flex items-center justify-center space-x-2"
+          >
+            <span>⚡ Open Live Vault Demo</span>
           </button>
 
           <a
@@ -104,9 +131,9 @@ export default function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Cryptographic Lock Hashes</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Cryptographic Time-Lock</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Every fixed deposit record is bound with SHA-256 tamper-evident seals to eliminate unauthorized encashment or unverified lien removals.
+              Every deposit is signed with an HMAC-SHA256 seal. Attempted early status release before statutory maturity date triggers a 403 Security Breach.
             </p>
           </div>
 
@@ -118,7 +145,7 @@ export default function App() {
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Setu Account Aggregator</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Automated consent-driven banking rails verify FDR principal amounts, issuance dates, and maturity statuses directly with partner banks.
+              Automated consent-driven banking rails verify FDR principal amounts, issuance dates, and active lien holds directly with partner CBS banks.
             </p>
           </div>
 
@@ -128,9 +155,9 @@ export default function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Statutory Compliance Rules</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Automated Maturity Cron</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Continuous validation against regional criteria, tenure requirements, and automated notifications for renewals prior to maturity expiration.
+              Daily midnight cron (<code className="text-emerald-400 font-mono">0 0 * * *</code>) monitors FDR expirations, dispatching 30-day alerts and flagging deposits within 5 days as RENEWAL_REQUIRED.
             </p>
           </div>
         </div>
@@ -196,6 +223,14 @@ export default function App() {
                 className="w-full py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20"
               >
                 Authenticate Session
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleQuickDemoLogin()}
+                className="w-full py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold border border-slate-700 transition-colors"
+              >
+                ⚡ Instant Demo Login (Institution Officer)
               </button>
             </form>
           </div>

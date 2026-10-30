@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 // Import Modular Routes
 import authRoutes from './routes/auth.routes';
 import fdrRoutes from './routes/fdr.routes';
+import webhookRoutes from './routes/webhook.routes';
+import { initMaturityCron } from './cron/maturity.cron';
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.get('/', (req: Request, res: Response) => {
     endpoints: {
       auth: '/api/auth/login',
       fdr: '/api/fdr',
+      webhooks: '/api/webhooks',
       health: '/api/health',
     },
     timestamp: new Date().toISOString(),
@@ -43,6 +46,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 // Mount API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/fdr', fdrRoutes);
+app.use('/api/webhooks', webhookRoutes);
 
 // 404 Fallback Handler
 app.use((req: Request, res: Response) => {
@@ -61,6 +65,9 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     error: process.env.NODE_ENV === 'development' ? err : undefined,
   });
 });
+
+// Initialize Scheduled Background Cron Jobs
+initMaturityCron();
 
 // Start Server
 app.listen(PORT, () => {
