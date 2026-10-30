@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import fdrRoutes from './routes/fdr.routes';
 import webhookRoutes from './routes/webhook.routes';
+import regulationRoutes from './routes/regulation.routes';
 import { initMaturityCron } from './cron/maturity.cron';
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.get('/', (req: Request, res: Response) => {
     endpoints: {
       auth: '/api/auth/login',
       fdr: '/api/fdr',
+      regulations: '/api/regulations',
       webhooks: '/api/webhooks',
       health: '/api/health',
     },
@@ -47,6 +49,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/fdr', fdrRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/regulations', regulationRoutes);
 
 // 404 Fallback Handler
 app.use((req: Request, res: Response) => {
