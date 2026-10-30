@@ -37,3 +37,7 @@ lerna-debug.log*
 # OS Generated Files
 .DS_Store
 Thumbs.db
+
+# Vercel
+.vercel/
+
