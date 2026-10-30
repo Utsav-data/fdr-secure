@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Megaphone,
+  FileText,
   Send,
   CheckCircle2,
   Clock,
   Globe,
-  FileText,
   X,
 } from 'lucide-react';
 
@@ -78,10 +77,9 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
     setIsSubmitting(true);
     setToastMessage(null);
 
-    // Simulated API call with graceful fallback to real backend /api/regulations
     try {
       const token = localStorage.getItem('aicte_token');
-      const response = await fetch('http://localhost:5000/api/regulations', {
+      await fetch('http://localhost:5000/api/regulations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,11 +95,6 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
           },
         }),
       }).catch(() => null);
-
-      if (response && response.ok) {
-        const data = await response.json();
-        console.log('[Regulatory Engine API Response]:', data);
-      }
     } catch {
       // Offline fallback handling
     }
@@ -121,7 +114,7 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
 
       setPublishedRules([newRule, ...publishedRules]);
       setToastMessage(
-        `✓ Gazetted Regulation broadcasted successfully! Dispatched compliance tasks to ${
+        `✓ Statutory Order promulgated. Dispatched compliance tasks to ${
           newRule.institutionsImpacted
         } institution(s) across ${targetRegion === 'ALL' ? 'Pan-India' : targetRegion + ' Region'}.`
       );
@@ -137,57 +130,48 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
       }
 
       setTimeout(() => setToastMessage(null), 5000);
-    }, 900);
+    }, 600);
   };
 
   return (
-    <div className="rounded-2xl bg-slate-900 border border-cyan-500/30 p-6 shadow-2xl relative overflow-hidden backdrop-blur-md">
-      {/* Background Decorative Mesh */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-      {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-        <div className="flex items-center space-x-3">
-          <div className="p-2.5 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300">
-            <Megaphone className="w-5 h-5 text-cyan-400 animate-pulse" />
+    <div className="bg-white border border-slate-300 rounded-sm shadow-md p-6 relative text-left font-sans">
+      {/* Modal Top Bar */}
+      <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            Government of India • Central Regulatory Bureau
           </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <h2 className="text-lg font-bold text-white">
-                AICTE Regulatory Engine • Policy Promulgation Console
-              </h2>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
-                Admin Authority
-              </span>
-            </div>
-            <p className="text-xs text-slate-400">
-              Active statutory policy broadcasting & dynamic compliance task dispatch
-            </p>
-          </div>
+          <h3 className="text-lg font-bold text-nicBlue">
+            Promulgate Statutory Policy & Dispatch Compliance Mandates
+          </h3>
+          <p className="text-xs text-slate-600">
+            Enacts statutory policy changes and bulk-dispatches compliance tasks to institutional vaults.
+          </p>
         </div>
 
         {onClose && (
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-slate-700 p-1 rounded-sm border border-transparent hover:border-slate-300"
+            title="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         )}
       </div>
 
-      {/* Success Notification Toast */}
+      {/* Notification Toast */}
       {toastMessage && (
-        <div className="mt-4 p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-500/60 text-emerald-200 text-xs flex items-center space-x-2.5 shadow-lg shadow-emerald-950/50 animate-in fade-in slide-in-from-top-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span className="font-medium">{toastMessage}</span>
+        <div className="mb-4 p-3 rounded-sm bg-green-50 border border-green-300 text-green-900 text-xs flex items-center space-x-2">
+          <CheckCircle2 className="w-4 h-4 text-green-700 shrink-0" />
+          <span className="font-semibold">{toastMessage}</span>
         </div>
       )}
 
-      {/* Broadcast Form */}
-      <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+      {/* Promulgation Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
             Statutory Regulation Title
           </label>
           <input
@@ -195,62 +179,59 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
-            placeholder="e.g. AICTE Notification 2026/FDR-09: Mandatory Joint Security Deposit Adjustment"
+            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
+            placeholder="e.g. AICTE Gazetted Notification 2026/FDR-09"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
-            Gazetted Policy Description & Statutory Order Text
+          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+            Official Directive Text & Statutory Citations
           </label>
           <textarea
             required
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors leading-relaxed"
-            placeholder="Detailed directives, statutory section citations, and compliance guidelines..."
+            className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue leading-relaxed"
           />
         </div>
 
-        {/* Dynamic Criteria Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
-              Target Jurisdiction Region
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+              Target Jurisdiction
             </label>
             <div className="relative">
               <select
                 value={targetRegion}
                 onChange={(e) => setTargetRegion(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-cyan-500 transition-colors appearance-none cursor-pointer"
+                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue appearance-none"
               >
-                <option value="ALL">All Regions (Pan-India Technical Institutions)</option>
+                <option value="ALL">All Regions (Pan-India Institutions)</option>
                 <option value="Northern">Northern (Delhi, UP, Punjab, Haryana, J&K)</option>
                 <option value="Western">Western (Maharashtra, Gujarat, Goa)</option>
                 <option value="Southern">Southern (Karnataka, TN, Kerala, AP, TS)</option>
                 <option value="Eastern">Eastern (WB, Bihar, Odisha, NE States)</option>
               </select>
-              <Globe className="w-4 h-4 text-cyan-400 absolute right-3 top-3 pointer-events-none" />
+              <Globe className="w-4 h-4 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
               Deposit Top-Up Benchmark (INR)
             </label>
             <input
               type="number"
               value={topUpAmount}
               onChange={(e) => setTopUpAmount(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-emerald-400 font-mono font-semibold focus:outline-none focus:border-cyan-500 transition-colors"
-              placeholder="1000000"
+              className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono font-semibold focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
               Statutory Deadline (Days)
             </label>
             <div className="relative">
@@ -258,68 +239,81 @@ export const RegulatoryAdmin: React.FC<RegulatoryAdminProps> = ({
                 type="number"
                 value={deadlineDays}
                 onChange={(e) => setDeadlineDays(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-amber-300 font-mono focus:outline-none focus:border-cyan-500 transition-colors"
-                placeholder="15"
+                className="w-full px-3 py-2 rounded-sm bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-nicBlue focus:border-nicBlue"
               />
-              <Clock className="w-4 h-4 text-amber-400 absolute right-3 top-3 pointer-events-none" />
+              <Clock className="w-4 h-4 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
             </div>
           </div>
         </div>
 
-        {/* Submit Broadcast Button */}
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-xl shadow-cyan-500/25 border border-cyan-400/40 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
-        >
-          {isSubmitting ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Broadcasting Gazetted Policy & Bulk Generating Compliance Tasks...</span>
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4" />
-              <span>Promulgate Regulation & Dispatch Compliance Tasks</span>
-            </>
-          )}
-        </button>
+        <div className="pt-2">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-2.5 px-4 rounded-sm bg-nicBlue hover:bg-nicBlueDark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+          >
+            {isSubmitting ? (
+              <>
+                <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Broadcasting Statutory Directive to Institutional Repositories...</span>
+              </>
+            ) : (
+              <>
+                <Send className="w-3.5 h-3.5" />
+                <span>Promulgate Directive & Bulk Generate Compliance Tasks</span>
+              </>
+            )}
+          </button>
+        </div>
       </form>
 
-      {/* Promulgated Regulations History */}
-      <div className="mt-6 pt-5 border-t border-slate-800">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
-            <FileText className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Active Statutory Directives in System</span>
-          </h3>
-          <span className="text-[11px] font-mono text-cyan-400">
-            {publishedRules.length} Active Directives
+      {/* Promulgated Directives Table */}
+      <div className="mt-6 pt-4 border-t border-slate-200">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center space-x-1.5">
+            <FileText className="w-3.5 h-3.5 text-nicBlue" />
+            <span>Active Statutory Directives Ledger</span>
+          </span>
+          <span className="text-[11px] font-mono text-slate-500">
+            Total Active: {publishedRules.length}
           </span>
         </div>
 
-        <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
-          {publishedRules.map((rule) => (
-            <div
-              key={rule.id}
-              className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-slate-700 text-xs space-y-1.5 transition-colors"
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-white truncate max-w-[320px]">
-                  {rule.title}
-                </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-cyan-950 text-cyan-300 border border-cyan-800">
-                  {rule.region === 'ALL' ? 'Pan-India' : rule.region}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 line-clamp-1">{rule.description}</p>
-              <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-900">
-                <span>Top-up Required: <strong className="text-emerald-400 font-mono">{rule.topUpAmount}</strong></span>
-                <span>Impacted: <strong className="text-slate-300">{rule.institutionsImpacted} Institutions</strong></span>
-                <span>Promulgated: {rule.date}</span>
-              </div>
-            </div>
-          ))}
+        <div className="border border-slate-300 rounded-sm overflow-hidden text-xs">
+          <table className="w-full border-collapse">
+            <thead className="bg-slate-100 border-b border-slate-300 text-left text-[11px] uppercase tracking-wider text-slate-600 font-semibold">
+              <tr>
+                <th className="py-2 px-3 border-r border-slate-300">Directive Title</th>
+                <th className="py-2 px-3 border-r border-slate-300">Jurisdiction</th>
+                <th className="py-2 px-3 border-r border-slate-300">Top-Up (INR)</th>
+                <th className="py-2 px-3 border-r border-slate-300">Impacted</th>
+                <th className="py-2 px-3">Date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {publishedRules.map((rule) => (
+                <tr key={rule.id} className="hover:bg-slate-50">
+                  <td className="py-2 px-3 font-semibold text-slate-900 border-r border-slate-200">
+                    {rule.title}
+                  </td>
+                  <td className="py-2 px-3 text-slate-700 border-r border-slate-200">
+                    <span className="font-mono bg-slate-100 px-1 py-0.5 rounded-sm border border-slate-300 text-[10px]">
+                      {rule.region}
+                    </span>
+                  </td>
+                  <td className="py-2 px-3 font-mono font-bold text-slate-900 border-r border-slate-200">
+                    {rule.topUpAmount}
+                  </td>
+                  <td className="py-2 px-3 text-slate-700 border-r border-slate-200 font-mono">
+                    {rule.institutionsImpacted}
+                  </td>
+                  <td className="py-2 px-3 text-slate-500 font-mono text-[11px]">
+                    {rule.date}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
